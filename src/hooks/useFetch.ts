@@ -9,7 +9,8 @@ export function useFetch<T>(url:string){
         if (!url) return;
 
         const fetchData = async ()=>{
-            setLoading(true)
+            setData(null);
+            setLoading(true);
             setError(null);
 
             try{

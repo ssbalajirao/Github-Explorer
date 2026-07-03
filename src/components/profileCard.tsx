@@ -9,10 +9,14 @@ export default function ProfileCard({user}: Props){
     return(
         <div>
             <img src={user.avatar_url} alt="User image" />
-            <p>{user.name}</p>
-            <p>{user.login}</p>
-            <p>{user.bio}</p>
-            <p>{user.followers}, {user.following}, {user.public_repos}</p>
+            <p>Name: {user.name}</p>
+            <p>UserName: {user.login}</p>
+            <p>Bio: {user.bio}</p>
+            <div>
+            <span>Followers: {user.followers}</span>
+            <span>Following: {user.following}</span>
+            <span>Repos: {user.public_repos}</span>
+            </div>
         </div>
     )
 }
