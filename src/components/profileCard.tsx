@@ -8,7 +8,7 @@ interface Props {
 export default function ProfileCard({user}: Props){
     return(
         <div>
-            <img src={user.avatar_url} alt="User image" />
+            {/* <img src={user.avatar_url} alt="User image" /> */}
             <p>Name: {user.name}</p>
             <p>UserName: {user.login}</p>
             <p>Bio: {user.bio}</p>
