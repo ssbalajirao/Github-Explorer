@@ -1,5 +1,5 @@
 
-  import { useState } from 'react';
+  import { useState, useEffect } from 'react';
   import './App.css'
   import SearchBar from './components/searchbar';
   import { useFetch } from './hooks/useFetch';
@@ -7,6 +7,7 @@
   import type { GithubRepo, GithubUser } from './types/github';
   import RepoCard from './components/RepoCard';
   import RepoFilter from './components/RepoFilters';
+  import { userHistoryStore } from './store/userHistoryStore';
   function App() {
 
     const [username, setUsername] = useState<string | null>(null);
@@ -35,11 +36,23 @@
     const [filterby, setFilterBy] = useState("all");
 
     const filteredRepos = filterby === "all" ? sortedRepos : sortedRepos.filter(repoData => repoData.language === filterby);
+
+    // user history 
+    const {history, addToHistory} = userHistoryStore();
+    
+    useEffect(()=>{
+      if (data && username) addToHistory(username);
+    },[data]);
     
     return (
       <>
         <h1>GitHub Explorer</h1>
-        <SearchBar onSearch={(query)=>{setUsername(query);}} onClear={()=> setUsername(null)}/>
+        <SearchBar onSearch={(query)=>{setUsername(query);
+          // addToHistory(query);
+        }} onClear={()=> setUsername(null)}/>
+        {history.map(item =>(
+          <button key={item} onClick={()=> setUsername(item)}>{item}</button>
+        ))}
         {loading && <p>Loading...</p>}
         {error && <p>Error finding UserName...</p>}
         {data && <ProfileCard user={data}/>}
